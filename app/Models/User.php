@@ -58,4 +58,19 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function post(): HasManyThrough
+    {
+        return $this->hasMany(Post::class);
+    }   
+
+    public function followers(): HasManyThrough
+    {
+        return $this->hasMany(Followers::class);
+    }    
 }
