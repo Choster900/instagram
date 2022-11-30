@@ -25,8 +25,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'nick_name',
         'email',
         'password',
+        'web_site',
+        'presentation',
+        'estatus',
     ];
 
     /**
@@ -58,4 +62,24 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function post()
+    {
+        return $this->hasMany(Posts::class);//TODO: probablemente el parametro que falte sea user_id
+    }
+
+    /**
+     * Get all of the followers for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function followers()
+    {
+        return $this->hasMany(Followers::class);//TODO: tambien aqui
+    }
 }
