@@ -8,29 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Comments extends Model
 {
     use HasFactory;
-    protected $table = "Coments";
+    protected $table = 'coments';
     protected $fillable = [
-        "post_id",
-        "user_id",
-        "comments"
+        'post_id',
+        'user_id',
+        'comment'
     ];
 
-    /**
-     * Get the post that owns the Comments
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function post(): BelongsTo
-    {
-        return $this->belongsTo(Post::class, 'id');
-    }
     /**
      * Get the user that owns the Comments
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class);
+    }
+    public function post()
+    {
+        return $this->belongsTo(Posts::class);
     }
 }

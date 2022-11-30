@@ -9,16 +9,21 @@ class Followers extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "user_id",
-        "follower_id",
+        'user_id',
+        'follower_id',
     ];
 
-    public function user(): BelongsTo
+    /**
+     * Get the user that owns the Followers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
     {
-        return $this->belongsTo(Users::class, 'id');
+        return $this->belongsTo(User::class);
     }
-    public function follower(): BelongsTo
+    public function follower()
     {
-        return $this->belongsTo(Users::class, 'id');
+        return $this->belongsTo(User::class);
     }
 }

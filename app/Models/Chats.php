@@ -8,26 +8,33 @@ use Illuminate\Database\Eloquent\Model;
 class Chats extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        "user_send",
-        "user_recive",
+        'user_sent',
+        'user_recive',
     ];
 
-    public function usersend(): BelongsTo
+    /**
+     * Get the user that owns the Chats
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function usersent()
     {
-        return $this->belongsTo(Users::class, 'id');
+        return $this->belongsTo(User::class);
     }
-    public function userrecive(): BelongsTo
+    public function userrecive()
     {
-        return $this->belongsTo(Users::class, 'id');
+        return $this->belongsTo(User::class);
     }
+
     /**
      * Get all of the message for the Chats
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function message(): HasMany
+    public function message()
     {
-        return $this->hasMany(Messages::class);
+        return $this->hasMany(Comment::class, 'chat_id');
     }
 }

@@ -8,32 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Messages extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        "chat_id",
-        "user_id",
-        "message",
-        "file_path",
-        "file_name",
-        "send_date",
-        "type"
+        'message',
+        'file_path',
+        'file_name',
+        'send_date',
+        'type',
+        'chat_id',
+        'user_id',
     ];
 
     /**
-     * Get the user that owns the Messages
+     * Get the chat that owns the Messages
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class);
     }
-    /**
-     * Get all of the chat for the Messages
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function chat(): HasMany
+    public function chat()
     {
-        return $this->hasMany(Chats::class, 'foreign_key', 'local_key');
+        return $this->belongsTo(Chats::class);
     }
 }

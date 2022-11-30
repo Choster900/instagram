@@ -15,10 +15,10 @@ return new class extends Migration
     {
         //
         Schema::table('users', function (Blueprint $table) {
-            $table->string('web_site')->nullable();
-            $table->string('nick_name')->unique();
-            $table->text('presentation')->nullable();
-            $table->boolean('status')->default(0);
+            $table->string('web_site', 1000)->nullable()->default('text');
+            $table->text('presentacion', 1000)->nullable()->default('text');
+            $table->boolean('status')->nullable()->default(0);
+            $table->string('nick_name', 100)->nullable();
         });
     }
 
@@ -30,11 +30,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('web_site');
-            $table->dropColumn('nick_name');
-            $table->dropColumn('presentation');
-            $table->dropColumn('status')->default(0);
-        });
+        
     }
 };
