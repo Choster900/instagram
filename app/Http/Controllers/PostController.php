@@ -53,14 +53,30 @@ class PostController extends Controller
         return $this->post->getPost(Auth::id());/* este createPost() esta en el modelo */
     }
 
-    public function test()
+    public function giveLikeOrDislike(Request $request)
     {
         # code...
-        $data = [
-            "data" => 1
-        ];
+        $postId = $request->post_id;
+        $userId = auth()->user()->id;
 
-        print_r($data);
+        if ($this->likes->where("post_id",$postId)->where("user_id",$userId)->exists()){
+            # code...
+            $this->likes->deleLike($postId,$userId);
+            return response()->json(['like' => false, 'tableLikes' => $this->likes->where("post_id",$postId)->get()]);
+        }else{
+            $this->likes->giveLike($postId,$userId);
+            return response()->json(['like' => true, 'tableLikes' => $this->likes->where("post_id",$postId)->get()]);
+        }
+
     }
+
+    public function comment(Request $request)
+    {
+        $comment = $this->comments->create($request->all());
+
+        return $this->comments->with('user:id,name,nick_name,profile_photo_path')->where("id",$comment->id)->first();
+
+    }
+    
 
 }

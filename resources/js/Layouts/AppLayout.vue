@@ -77,13 +77,13 @@ const logout = () => {
                                     <template #content>
                                         <div v-if="buscando">
                                             <!-- FIXME:  No es reactivo hay que salirse el input para que muestre informacion-->
-                                            <a href="" class="flex items-center py-2 px-3 hover:bg-gray-100" v-for="(usuario, i) in usuarios" :key="i">
+                                            <Link   class="flex items-center py-2 px-3 hover:bg-gray-100" v-for="(usuario, i) in usuarios" :key="i" :href="'/profile/'+usuario.nick_name">
                                                 <img :src="usuario.profile_photo_url" class="rounded-full w-9 h-9 object-cover">
                                                 <div class="ml-2">
                                                     <span class="block font-bold text-gray-700 text-sm">{{usuario.nick_name}}</span>
                                                     <span class="block font-light text-gray-400 text-sm">{{ usuario.name}}</span>
                                                 </div>
-                                            </a>
+                                            </Link >
                                         </div>
                                         <div v-else>
                                             <!-- FIXME:  No es reactivo hay que salirse el input para que muestre informacion-->
@@ -112,26 +112,28 @@ const logout = () => {
                                         <span v-else class="inline-flex rounded-md">
                                             <button type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                                {{ $page.props.user.name }}
+                                                <!-- {{ $page.props.user.name }}
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd"
                                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                                         clip-rule="evenodd" />
-                                                </svg>
+                                                </svg> -->
+
+                                                <img :src=" $page.props.user.profile_photo_url" class="h-10 w-10 rounded-full" alt="">
                                             </button>
                                         </span>
                                     </template>
 
                                     <template #content>
                                         <!-- Account Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
-                                            Manage Account
-                                        </div>
+                                        <DropdownLink :href="'/profile/' +$page.props.user.nick_name">
+                                            perfil
+                                        </DropdownLink>
 
                                         <DropdownLink :href="route('profile.show')">
-                                            Profile
+                                            Configuracion
                                         </DropdownLink>
 
                                         <DropdownLink v-if="$page.props.jetstream.hasApiFeatures"
@@ -200,7 +202,7 @@ const logout = () => {
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
-                                Profile
+                                Configuracion
                             </ResponsiveNavLink>
 
                             <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures"
@@ -300,6 +302,7 @@ export default {
                     this.usuarios = response.data
                 })
         }
-    }
+    },
+    
 }
 </script>

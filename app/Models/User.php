@@ -29,7 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'web_site',
-        'presentation',
+        'presentacion',
         'estatus',
     ];
 

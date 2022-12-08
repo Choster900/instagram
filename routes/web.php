@@ -7,6 +7,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\SearchController;//TODO: ESTO TIENE QUE IR EN MAYUSCULA LA LETRA A
 use App\Http\Controllers\PostController;//TODO: ESTO TIENE QUE IR EN MAYUSCULA LA LETRA A
+use App\Http\Controllers\ProfileController;//TODO: ESTO TIENE QUE IR EN MAYUSCULA LA LETRA A
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified',])
     Route::get('/list-post',
         [PostController::class,'getPost'])->name('list-post');
     
+    Route::post('/like-post',
+        [PostController::class,'giveLikeOrDislike'])->name('like-post');
+
+    Route::post('/comment',
+        [PostController::class,'comment'])->name('comment');
+
+    //rutas hacia profile
+    Route::get('/profile/{nick_name}',
+        [ProfileController::class,'index'])->name('profile');
 });
