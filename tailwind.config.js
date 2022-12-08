@@ -15,7 +15,13 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            
         },
+    },
+    variants:{
+        extends:{
+            fill:['hover','focus'],
+        }
     },
 
     plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
