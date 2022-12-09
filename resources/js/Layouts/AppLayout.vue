@@ -36,6 +36,7 @@ const logout = () => {
 
 <template>
     <div>
+
         <Head :title="title" />
         <Banner />
 
@@ -48,14 +49,14 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center w-28">
                                 <Link :href="route('dashboard')">
-                                    <AuthenticationCardLogo />
+                                <AuthenticationCardLogo />
                                 </Link>
                             </div>
 
                             <!-- Buscando usuarios Dropdown -->
                             <div class="ml-96 relative mt-1">
                                 <Dropdown align="center" width="100" overflow="overflow-y-auto" maxheight="300">
-                                    <template #trigger>                                        
+                                    <template #trigger>
                                         <div class="pt-2 relative mx-auto text-gray-600">
                                             <input v-model="buscando" @keyup="buscarUsuario"
                                                 class="border-2 border-gray-300 bg-white w-100 h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
@@ -77,18 +78,26 @@ const logout = () => {
                                     <template #content>
                                         <div v-if="buscando">
                                             <!-- FIXME:  No es reactivo hay que salirse el input para que muestre informacion-->
-                                            <Link   class="flex items-center py-2 px-3 hover:bg-gray-100" v-for="(usuario, i) in usuarios" :key="i" :href="'/profile/'+usuario.nick_name">
-                                                <img :src="usuario.profile_photo_url" class="rounded-full w-9 h-9 object-cover">
-                                                <div class="ml-2">
-                                                    <span class="block font-bold text-gray-700 text-sm">{{usuario.nick_name}}</span>
-                                                    <span class="block font-light text-gray-400 text-sm">{{ usuario.name}}</span>
-                                                </div>
-                                            </Link >
+                                            <Link class="flex items-center py-2 px-3 hover:bg-gray-100"
+                                                v-for="(usuario, i) in usuarios" :key="i"
+                                                :href="'/profile/' + usuario.nick_name">
+                                            <img :src="usuario.profile_photo_url"
+                                                class="rounded-full w-9 h-9 object-cover">
+                                            <div class="ml-2">
+                                                <span class="block font-bold text-gray-700 text-sm">{{ usuario.nick_name
+                                                }}</span>
+                                                <span class="block font-light text-gray-400 text-sm">{{
+                                                        usuario.name
+                                                }}</span>
+                                            </div>
+                                            </Link>
                                         </div>
                                         <div v-else>
                                             <!-- FIXME:  No es reactivo hay que salirse el input para que muestre informacion-->
                                             <div class="flex items-center py-2 px-3 hover:bg-gray-100">
-                                                <span class="block font-bold text-gray-700 text-sm cursor-default">Buscar amigos</span>
+                                                <span
+                                                    class="block font-bold text-gray-700 text-sm cursor-default">Buscar
+                                                    amigos</span>
                                             </div>
                                         </div>
 
@@ -96,11 +105,21 @@ const logout = () => {
 
                                 </Dropdown>
                             </div>
-                        
+
                         </div>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- settings Dropdown -->
                             <div class="ml-3 relative">
+                                <Link class="flex items-center py-2 px-3" href="/chats">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6 -rotate-45">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                </svg>
+
+                                </Link>
+                            </div>
+                            <div class=" ml-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <button v-if="$page.props.jetstream.managesProfilePhotos"
@@ -121,14 +140,15 @@ const logout = () => {
                                                         clip-rule="evenodd" />
                                                 </svg> -->
 
-                                                <img :src=" $page.props.user.profile_photo_url" class="h-10 w-10 rounded-full" alt="">
+                                                <img :src="$page.props.user.profile_photo_url"
+                                                    class="h-10 w-10 rounded-full" alt="">
                                             </button>
                                         </span>
                                     </template>
 
                                     <template #content>
                                         <!-- Account Management -->
-                                        <DropdownLink :href="'/profile/' +$page.props.user.nick_name">
+                                        <DropdownLink :href="'/profile/' + $page.props.user.nick_name">
                                             perfil
                                         </DropdownLink>
 
@@ -303,6 +323,6 @@ export default {
                 })
         }
     },
-    
+
 }
 </script>

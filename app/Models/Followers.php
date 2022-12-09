@@ -4,26 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Followers extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'follower_id',
     ];
 
-    /**
-     * Get the user that owns the Followers
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo(User::class);
     }
-    public function follower()
-    {
+
+    public function follower(){
         return $this->belongsTo(User::class);
     }
 }
