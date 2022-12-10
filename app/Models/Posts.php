@@ -80,19 +80,22 @@ class Posts extends Model
 
     }
 
-    public function getPost($id)
+    public function getPost($id,$profileUser = false)
     {
-        return (new static)::with([
+        $query = (new static)::with([
             'user',
             'comments' => function($query){//esto es como un inner join
                 $query->with('user:id,name,nick_name,profile_photo_path');
             },
             'likes',
-        ])
-        ->where("user_id",$id)
-        ->orWhereIn("user_id",Followers::select('user_id')->where('follower_id',$id)->get())
-        ->orderBy("created_at","desc")
-        ->get();
+        ])->where("user_id",$id);
+
+        if ($profileUser) {
+            $query = $query->orWhereIn("user_id",Followers::select('user_id')->where('follower_id',$id)->get());
+        } 
+
+        return  $query->orderBy("created_at","desc")->get();
     }
+    
     
 }

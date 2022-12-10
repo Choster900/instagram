@@ -9,7 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Followers;
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -29,7 +32,7 @@ class User extends Authenticatable
         'email',
         'password',
         'web_site',
-        'presentation',
+        'presentacion',
         'estatus',
     ];
 
@@ -62,7 +65,7 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
+    
     /**
      * Get all of the comments for the User
      *
@@ -78,8 +81,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function followers()
-    {
-        return $this->hasMany(Followers::class);//TODO: tambien aqui
+    public function followers(){
+        return $this->hasMany(Followers::class);
     }
 }

@@ -27,4 +27,20 @@ class Likes extends Model
     {
         return $this->belongsTo(Posts::class);
     }
+
+    public static function giveLike($postId,$userId)
+    {
+        return (new static)::create([
+            'post_id' => $postId,
+            'user_id' => $userId
+        ]);
+    }
+
+    public static function deleLike($postId,$userId)
+    {
+        (new static)::where([
+            'post_id' => $postId,
+            'user_id' => $userId
+        ])->delete();
+    }
 }

@@ -8,14 +8,22 @@
         </button>
 
 
-        <div v-if="(post.length > 0)">
-            <post-component-vue v-for="(publicaciones, i) in post" :key="i" :post="publicaciones"/>
+        <!-- ESTO ES LA PARTE DE RECORRIDO DE PUBLICACIONES -->
+        <div v-if="(posts.length > 0)">
+            <post-component-vue v-for="(publicaciones, i) in posts" :key="i" :post="publicaciones" @dataPost="setPost"/>
         </div>
         <div v-else class="text-3x1 text-center mt-4">No hay publicaciones</div>
+        <!--// ESTO ES LA PARTE DE RECORRIDO DE PUBLICACIONES -->
 
 
-        
-        <ModalVue :show="showModal" @close="changeStateShowCreatePost">
+        <ModalPostVue 
+            :show="showModalPost" 
+            :publicacion="unicPost"
+            @mostrandoElModal="changeStateModalPost" 
+        />
+
+
+        <ModalVue :show="showModalCreate" @close="changeStateShowCreatePost">
             <div class="p-5">
                 <div class="">
                     <input v-model="text" type="text"
@@ -58,29 +66,38 @@
 
 import PostComponentVue from '../Components_bySergio/PostComponent.vue';
 import ModalVue from '../Components/Modal.vue';
+import ModalPostVue from '../Components_bySergio/ModalPost.vue';
+
 export default {
     data() {
         return {//estas son las variables
-            showModal: false,
+            showModalCreate: false,
+            showModalPost: false,
             url: null,
             img: null,
             text: '',
-            post: [],
+            posts: [],
+            unicPost: [],
             error_img: null,
         }
     },
     components: {
         PostComponentVue,
-        ModalVue
+        ModalVue,
+        ModalPostVue
     },
     methods: {
-        async getPost() {
+        async getPost() {//obteniendo todos las publicaciones
             await axios.get("/list-post").then(response => {
-                this.post = response.data
+                this.posts = response.data
             })
         },
         changeStateShowCreatePost() {
-            this.showModal = !this.showModal
+            this.showModalCreate = !this.showModalCreate
+        },
+        changeStateModalPost() {
+            this.showModalPost = !this.showModalPost
+
         },
         fileChange(e) {
             let file = e.target.files[0]
@@ -104,7 +121,7 @@ export default {
                 }
 
             }).then((res) => {
-                this.post.unshift(res.data)
+                this.posts.unshift(res.data)
                 this.resentForm()
             }).catch(Error => {
                 if (Error.response.status === 422) {
@@ -120,9 +137,13 @@ export default {
             this.url = null
             this.img = null
             this.text = ''
+        },
+        setPost(publicacion){
+            this.showModalPost = !this.showModalPost
+            this.unicPost = publicacion
         }
     },
-    created(){
+    created() {//esto es como lo de jquery que se ejecuta al cargar
         this.getPost()
     }
 }

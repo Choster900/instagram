@@ -19,13 +19,13 @@ class Chats extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function usersent()
+    public function user_sent()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,"user_sent");
     }
-    public function userrecive()
+    public function user_recive()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,"user_recive");
     }
 
     /**
@@ -33,8 +33,8 @@ class Chats extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function message()
+    public function messages()
     {
-        return $this->hasMany(Comment::class, 'chat_id');
+        return $this->hasMany(Messages::class,"chat_id");
     }
 }
