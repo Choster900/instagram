@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+
 use App\Models\User;
 use App\Models\Chats;
 use App\Models\Messages;

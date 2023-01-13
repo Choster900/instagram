@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 //ESTOS LOS AGREGE YO POR MI CUENTA
 
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 use App\Models\Posts;
 use App\Models\Followers;
 
@@ -20,15 +20,15 @@ class SearchController extends Controller
 {
     //
     private $user;
-    private $followers;
-    private $posts;
+    private $follower;
+    private $post;
 
-    public function __construc(User $user, Followers $followers,Posts $posts)
+    public function __construc(User $user, Followers $follower,Posts $post)
     {
         # code...
         $this->user = $user;
-        $this->followers = $followers;
-        $this->posts = $posts;
+        $this->follower = $follower;
+        $this->post = $post;
 
     }
 
@@ -43,12 +43,21 @@ class SearchController extends Controller
     public function userIFollow($nick_name)
     {//TODO: REVISAR ESTO 
 
-        /* return User::select('*')
-        ->whereHas('followers',function(Builder $query) {
-            $query->where('follower_id',auth()->user()->id);
-        })
-        ->where('nick_name','like','%'.$nick_name.'%')
+      /*   return User::with([
+            
+            "followers" => function($query){
+               //$query->where("follower_id", auth()->user()->id);
+            },
+        ]) */
+       /*  ->whereHas('followers',function(Builder $query){
+            $query->where('follower_id', 1);
+        }) */
+        /* ->where('nick_name','like','%'.$nick_name.'%')
         ->get(); */
+
+  /*       return Post::whereHas('comments', function (Builder $query) {
+            $query->where('content', 'like', 'code%');
+        })->get(); */
 
 
       /*   return User::whereHas('followers', function ($query) {
@@ -67,6 +76,12 @@ class SearchController extends Controller
                 ->where('nick_name','like','%'.$nick_name.'%')
                 ->where('followers.user_id',auth()->user()->id)
                 ->get();
+
+              /*   return $this->follower->with([
+                    "*",
+                    "user"
+                ])->where('nick_name','like','%'.$nick_name.'%')
+                ->get(); */
     }
 
     public function test()

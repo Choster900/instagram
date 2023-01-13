@@ -74,9 +74,10 @@ import { Link } from "@inertiajs/inertia-vue3";
                               </h1>
                               <h3 class="text-sm font-light">{{ userProfile.name }}</h3>
                               <span class="text-base">{{ userProfile.presentacion }}</span>
-                              <a class="block text-base text-blue-500 mt-2" target="_blank" :href="userProfile.web_site">{{
+                              <a class="block text-base text-blue-500 mt-2" target="_blank"
+                                   :href="userProfile.web_site">{{
                                         userProfile.web_site
-                              }}</a>
+                                   }}</a>
                          </div>
                     </div>
                </div>
@@ -102,12 +103,8 @@ import { Link } from "@inertiajs/inertia-vue3";
 
           </div>
 
-          <ModalPostVue 
-            :show="showModalPost" 
-            :publicacion="unicPost"
-            @mostrandoElModal="changeStateModalPost" 
-        />
-        
+          <ModalPostVue :show="showModalPost" :publicacion="unicPost" @mostrandoElModal="changeStateModalPost" />
+
      </app-layout>
 </template>
 <script>
@@ -122,8 +119,8 @@ export default {
           }
      },
      components: {
-        ModalPostVue,
-    },
+          ModalPostVue,
+     },
      props: [
           "userProfile",
           "followers",
@@ -138,7 +135,7 @@ export default {
           },
           mostrando_modal(post) {
                this.unicPost = post
-               this.changeStateModalPost(); 
+               this.changeStateModalPost();
           }
      }
 };
