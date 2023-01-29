@@ -16,7 +16,7 @@ return new class extends Migration
         //
         Schema::table('users', function (Blueprint $table) {
             $table->string('web_site', 1000)->nullable()->default('text');
-            $table->text('presentacion', 1000)->nullable()->default('text');
+            $table->text('presentacion')->nullable()->default('text');
             $table->boolean('status')->nullable()->default(0);
             $table->string('nick_name', 100)->nullable();
         });

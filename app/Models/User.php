@@ -82,6 +82,6 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function followers(){
-        return $this->hasMany(Followers::class);
+        return $this->hasMany(Followers::class,"user_id","id");
     }
 }

@@ -20,11 +20,11 @@
                         </header>
 
                         <div class="scroll" ref="scrollComments">
-                       
-                            <comments  v-for="(comment, index) in publicacion.comments"
-                                :key="index" :comment="comment.comment" :nickName="comment.user.nick_name"
+
+                            <comments v-for="(comment, index) in publicacion.comments" :key="index"
+                                :comment="comment.comment" :nickName="comment.user.nick_name"
                                 :urlImage="comment.user.profile_photo_url"></comments>
-                          
+
                         </div>
 
                         <div class="absolute bottom-0 left-0 right-0 pl-4">
@@ -36,7 +36,9 @@
                                     <div class="flex items-center justify-between mt-3 ">
                                         <div class="flex gap-5">
                                             <span class="cursor-pointer" @click="giveLikeOrDislike">
-                                                <svg height="25" stroke="red" width="25" class="fill-white"
+                                                <svg height="25" stroke="red" width="25"
+                                                    :class="Object.prototype.hasOwnProperty.call(publicacion.likes, $page.props.user.id) ? 'fill-red-900' : 'fill-white '">
+
                                                     viewBox="0 0 23 23">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -60,7 +62,8 @@
                                     <span class="text-gray-600 text-sm font-bold"> {{ publicacion.countLikes }}
                                         Likes</span>
                                 </div>
-                                <span class="block ml-2 text-xs font-semibold text-gray-900"> {{ publicacion.description
+                                <span class="block ml-2 text-xs font-semibold text-gray-900"> {{
+                                    publicacion.description
                                 }} </span>
                             </div>
 
