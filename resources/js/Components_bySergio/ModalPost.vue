@@ -36,14 +36,11 @@
                                     <div class="flex items-center justify-between mt-3 ">
                                         <div class="flex gap-5">
                                             <span class="cursor-pointer" @click="giveLikeOrDislike">
-                                                <svg height="25" stroke="red" width="25"
-                                                    :class="Object.prototype.hasOwnProperty.call(publicacion.likes, $page.props.user.id) ? 'fill-red-900' : 'fill-white '">
-
-                                                    viewBox="0 0 23 23">
+                                                <svg height="25" stroke="red" width="25" class="hover:fill-red-500"
+                                                    :class="publicacion.likes.find(like => like.user_id === $page.props.user.id) ? 'fill-red-500' : 'fill-white'">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                                                 </svg>
-
                                             </span>
                                             <span class="cursor-pointer" @click="setDataPost">
                                                 <svg fill="#262626" height="24" viewBox="0 0 48 48" width="24">
